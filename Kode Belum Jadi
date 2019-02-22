@@ -81,7 +81,6 @@ while True:
                 adjacentzone.append(listzone1[j])
             else :
                 adjacent == False
-    
     currentpos = int()
     for i in range(zone_count) :
         if (p0count[i] != 0) :
@@ -89,7 +88,7 @@ while True:
 
     az = removeDuplicates(adjacentzone)
     for i in range (zone_count) :
-        if ((my_id == 0 and p0count[i] != 0) or (my_id == 1 and p1count[i] != 0)) and (len() == 1) :
+        if (my_id == 0 and p0count[i] != 0) or (my_id == 1 and p1count[i] != 0):
             for j in range (len(az)) :
                 if (az[j] != currentpos) :
                     target.append(az[j])
@@ -99,7 +98,5 @@ while True:
                 print (p1count[i], end = ' ' )
             print (str(i)+ ' ' + str(target[0]))
             print (az)
-        else :
-            break
 
     # first line for movement commands, second line no longer used (see the protocol in the statement for details)
