@@ -88,18 +88,15 @@ while True:
             currentpos = i
 
     az = removeDuplicates(adjacentzone)
+    nextloc = ""
     for i in range (zone_count) :
-        if ((my_id == 0 and p0count[i] != 0) or (my_id == 1 and p1count[i] != 0)) and (len() == 1) :
-            for j in range (len(az)) :
-                if (az[j] != currentpos) :
-                    target.append(az[j])
-            if (my_id == 0) :
-                print (p0count[i], end = ' ' )
-            else :
-                print (p1count[i], end = ' ' )
-            print (str(i)+ ' ' + str(target[0]))
-            print (az)
-        else :
-            break
-
+        if (my_id == 0 and p0count[i] !=0) or (my_id == 1 and p1count[i] != 0) : 
+            if ((my_id == 0 and p0count[i] != 0) or (my_id == 1 and p1count[i] != 0)) and (len(az)==1) :
+                nextloc += (str(p0count[i]) + ' ' + str(i) + ' ' + str(az[0]) + ' ')
+            elif ((my_id == 0 and p0count[i] != 0) or (my_id == 1 and p1count[i] != 0)) and (len(az)>1) and (p0count[i] != 1) :
+                nextloc += (str(p0count[i]//len(az)) + ' ' + str(i) + ' ' + str(random.choice(az)) + ' ')
+            elif ((my_id == 0 and p0count[i] != 0) or (my_id == 1 and p1count[i] != 0)) and (len(az)>1) and (p0count[i] == 1) :
+                nextloc += (str(p0count[i]) + ' ' + str(i) + ' ' + str(random.choice(az)) + ' ')
+            print (nextloc)
+            print ("wait")
     # first line for movement commands, second line no longer used (see the protocol in the statement for details)
