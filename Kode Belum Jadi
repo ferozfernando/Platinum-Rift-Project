@@ -1,0 +1,105 @@
+import sys
+import math
+import random
+
+# Auto-generated code below aims at helping you parse
+# the standard input according to the problem statement.
+
+# player_count: the amount of players (always 2)
+# my_id: my player ID (0 or 1)
+# zone_count: the amount of zones on the map
+# link_count: the amount of links between all zones
+def removeDuplicates(listofElements):
+    uniqueList = []
+    for elem in listofElements:
+        if elem not in uniqueList:
+            uniqueList.append(elem)
+    return uniqueList
+    
+player_count, my_id, zone_count, link_count = [int(i) for i in input().split()]
+for i in range(zone_count):
+    # zone_id: this zone's ID (between 0 and zoneCount-1)
+    # platinum_source: Because of the fog, will always be 0
+    zone_id, platinum_source = [int(j) for j in input().split()]
+listzone1 = []
+listzone2 = []
+for i in range(link_count):
+    zone_1, zone_2 = [int(j) for j in input().split()]
+    listzone1.append(zone_1)
+    listzone2.append(zone_2)
+# game loop
+count = 0
+x = 1
+start = 0
+adjacentzone = []
+adjacent = bool()
+zid_list = []
+p0count = []
+listvisible = []
+p1count = []
+realaz = []
+p0index = []
+positions = []
+target = []
+while True:
+    p0count = []
+    listvisible = []
+    adjacentzone = []
+    p0index = []
+    positions = []
+    target = []
+    my_platinum = int(input())  # your available Platinum
+    for i in range(zone_count):
+        # z_id: this zone's ID
+        # owner_id: the player who owns this zone (-1 otherwise)
+        # pods_p0: player 0's PODs on this zone
+        # pods_p1: player 1's PODs on this zone
+        # visible: 1 if one of your units can see this tile, else 0
+        # platinum: the amount of Platinum this zone can provide (0 if hidden by fog)
+        z_id, owner_id, pods_p0, pods_p1, visible, platinum = [int(j) for j in input().split()]
+        zid_list.append(z_id)
+        p0count.append(pods_p0)
+        p1count.append(pods_p1)
+        listvisible.append(visible)
+    
+    # Write an action using print
+    # To debug: print("Debug messages...", file=sys.stderr)           
+    for i in range (zone_count) :
+        if p0count[i] != 0 :
+            p0index.append(i)
+    
+    enemyBase = int()
+    
+    for i in range (zone_count) :
+        if (p1count[i] != 0) :
+            enemyBase = i
+    
+    for i in range (zone_count):
+        for j in range (link_count) :
+            if ((listvisible[i] == 1) and (listzone1[j] == i) and (listzone1[j] != enemyBase)) :
+                adjacent == True
+                adjacentzone.append(listzone1[j])
+            else :
+                adjacent == False
+    
+    currentpos = int()
+    for i in range(zone_count) :
+        if (p0count[i] != 0) :
+            currentpos = i
+
+    az = removeDuplicates(adjacentzone)
+    for i in range (zone_count) :
+        if ((my_id == 0 and p0count[i] != 0) or (my_id == 1 and p1count[i] != 0)) and (len() == 1) :
+            for j in range (len(az)) :
+                if (az[j] != currentpos) :
+                    target.append(az[j])
+            if (my_id == 0) :
+                print (p0count[i], end = ' ' )
+            else :
+                print (p1count[i], end = ' ' )
+            print (str(i)+ ' ' + str(target[0]))
+            print (az)
+        else :
+            break
+
+    # first line for movement commands, second line no longer used (see the protocol in the statement for details)
